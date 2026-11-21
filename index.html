@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chargali Legacy — ჩარგალი ლეგასი</title>
+    <style>
+        :root {
+            --bg: #f3f5f2;
+            --card: #ffffff;
+            --ink: #1e2923;
+            --muted: #4b5d52;
+            --accent: #2c4c3b;
+            --accent-soft: #e6eee9;
+            --border: #dce3de;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--ink);
+            line-height: 1.7;
+        }
+        .topbar {
+            background-color: #1f3328;
+            color: #ffffff;
+            padding: 14px 24px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+        .brand-top {
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            font-size: 0.95rem;
+        }
+        .lang-switch button {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            padding: 7px 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        .lang-switch button.active,
+        .lang-switch button:hover {
+            background: #ffffff;
+            color: #1f3328;
+        }
+        .hero {
+            background: linear-gradient(135deg, #243b2e 0%, #3a5a48 100%);
+            color: #ffffff;
+            padding: 48px 24px;
+            text-align: center;
+        }
+        .hero-logo {
+            max-width: 240px;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            background: #ffffff;
+            padding: 8px;
+            margin: 0 auto 16px;
+            display: block;
+        }
+        .hero .tag {
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        .hero h1 {
+            margin: 0 0 12px;
+            font-size: 2.2rem;
+        }
+        .hero p {
+            max-width: 780px;
+            margin: 0 auto 28px;
+            font-size: 1.05rem;
+            opacity: 0.95;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+        .stat-box {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 8px;
+            padding: 14px;
+        }
+        .stat-box strong {
+            display: block;
+            font-size: 1.25rem;
+            margin-bottom: 4px;
+        }
+        .container {
+            max-width: 960px;
+            margin: 32px auto;
+            padding: 0 18px;
+        }
+        section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+        .sec-num {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        h2 {
+            margin: 0 0 14px;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+        h3 {
+            margin: 20px 0 8px;
+            color: var(--ink);
+            font-size: 1.15rem;
+        }
+        ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+        blockquote {
+            margin: 16px 0;
+            padding: 12px 16px;
+            border-left: 4px solid var(--accent);
+            background: var(--accent-soft);
+            border-radius: 0 6px 6px 0;
+            font-style: italic;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 14px;
+        }
+        .mini-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+        }
+        .genealogy {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-soft);
+            padding: 14px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 14px 0;
+        }
+        .media-card {
+            border: 1px solid var(--border);
+            background: #f8faf9;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+        .media-card img,
+        .media-card video {
+            width: 100%;
+            max-height: 360px;
+            object-fit: cover;
+            border-radius: 6px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .banner-img {
+            width: 100%;
+            max-height: 420px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+            margin-top: 14px;
+        }
+        .links-list a {
+            display: inline-block;
+            margin: 6px 10px 6px 0;
+            padding: 8px 14px;
+            border-radius: 6px;
+            background: var(--accent);
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.92rem;
+        }
+        .links-list a.secondary {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+        footer {
+            text-align: center;
+            padding: 28px 18px 40px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+        <div class="brand-top">CHARGALI LEGACY · PSHAVI, GEORGIA</div>
+        <div class="lang-switch">
+            <button id="btn-ka" class="active" onclick="setLang('ka')">ქართული</button>
+            <button id="btn-en" onclick="setLang('en')">English</button>
+        </div>
+    </div>
+
+    <!-- ================= ქართული ვერსია ================= -->
+    <div id="lang-ka">
+        <header class="hero">
+            <img src="1000030936.jpg" alt="Chargali Legacy Logo" class="hero-logo">
+            <div class="tag">CHARGALI · PSHAVI · GEORGIA</div>
+            <h1>ჩარგალი ლეგასი</h1>
+            <p>ბუნება. ხედვა. ინვესტიცია. — მემკვიდრეობის შენარჩუნება. მომავლის შექმნა. დამოუკიდებელი კერძო განვითარების ინიციატივა ფშავში, სოფელ ჩარგალში. ჩვენი მიზანია ჩარგალის ბუნებრივი გარემოს, ოჯახური ისტორიისა და მთის სტუმართმოყვარეობის შესაძლებლობების გაერთიანება ერთ გრძელვადიან ხედვაში.</p>
+            <div class="stats">
+                <div class="stat-box">
+                    <strong>~1 200 მ / m</strong>
+                    <span>ზღვის დონიდან</span>
+                </div>
+                <div class="stat-box">
+                    <strong>~80 კმ / km</strong>
+                    <span>თბილისიდან</span>
+                </div>
+                <div class="stat-box">
+                    <strong>~200 მ² / m²</strong>
+                    <span>საკოტეჯე ნაკვეთები (I ეტაპი)</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+            <section>
+                <div class="sec-num">01 • პროექტის შესახებ</div>
+                <h2>ადგილი, სადაც ბუნება და მომავალი ერთმანეთს ხვდება</h2>
+                <p>ჩარგალი საქართველოს ისტორიულ მთიან რეგიონში, ფშავში მდებარეობს. ეს არის ადგილი, სადაც მთის ბუნება, ტრადიციული გარემო და ქართული ლიტერატურული ისტორია განსაკუთრებულ სივრცეს ქმნის.</p>
+                <h3>ჩვენი ხედვის სამი მთავარი მიმართულება</h3>
+                <p>ჩარგალი ლეგასი არის ოჯახურ საკუთრებასთან დაკავშირებული დამოუკიდებელი კერძო ინიციატივა, რომელიც მიზნად ისახავს ამ ადგილის შესაძლებლობების გააზრებულ განვითარებას:</p>
+                <ul>
+                    <li>ბუნებრივი გარემოსა და ადგილის ავთენტური ხასიათის პატივისცემა;</li>
+                    <li>მთის სტუმართმოყვარეობისა და ტურიზმის განვითარების შესაძლებლობები;</li>
+                    <li>ოჯახური ისტორიისა და ლიტერატურული მემკვიდრეობის წარმოჩენა.</li>
+                </ul>
+                <h3>რატომ ჩარგალი? — მდებარეობა და ბუნებრივი გარემო</h3>
+                <p>სოფელი დაკავშირებულია ვაჟა-ფშაველას ცხოვრებასა და შემოქმედებასთან. ტყიანი ფერდობები, მთის ხედები და მდინარე ჩარგალულა (ჩარგლულა) ქმნის გამორჩეულ გარემოს.</p>
+                <ul>
+                    <li>სოფელი ჩარგალი, ფშავი (დუშეთის მუნიციპალიტეტი, მცხეთა-მთიანეთი);</li>
+                    <li>ზღვის დონიდან დაახლოებით 1 200 მეტრი;</li>
+                    <li>თბილისიდან დაახლოებით 80 კილომეტრი.</li>
+                </ul>
+            </section>
+
+            <section>
+                <div class="sec-num">02 • პირველი ეტაპი</div>
+                <h2>საკოტეჯე საინვესტიციო შეთავაზება</h2>
+                <p>პროექტის პირველ ეტაპზე დაინტერესებულ პირებსა და ინვესტორებს ვთავაზობთ რამდენიმე საკოტეჯე ადგილს სოფელ ჩარგალში. თითოეული შეთავაზებული ადგილი დაახლოებით 200 მ² ფართობისაა.</p>
+                <h3>შეთავაზების ძირითადი პირობები</h3>
+                <ul>
+                    <li>რამდენიმე საკოტეჯე ადგილი — დაახლოებით 200 მ² თითოეული;</li>
+                    <li>მიწის შეძენის შესაძლებლობა ინდივიდუალური შეთანხმებით;</li>
+                    <li>საკუთრებისა და მშენებლობის შესაძლებლობა შესაბამისი სამართლებრივი დოკუმენტაციის ფარგლებში;</li>
+                    <li>ჩარგალი ლეგასის საერთო არქიტექტურული და სივრცითი კონცეფციის გათვალისწინებით კოტეჯის აშენების ან პროექტირება-მშენებლობის მინდობის შესაძლებლობა;</li>
+                    <li>მიწის ფასი და თანამშრომლობის პირობები განიხილება დაინტერესებულ პირებთან ინდივიდუალურად.</li>
+                </ul>
+                <p><strong>დაკავშირება:</strong> chargalilegacy@gmail.com</p>
+                <p><strong>ჩარგალი ლეგასი — გახდი ისტორიის ნაწილი (200 კვ.მ):</strong> საკოტეჯე შეთავაზება (KA) • Chargali Legacy — Investment &amp; Partnership • ინვესტიცია და პარტნიორობა (EN)</p>
+                <img src="1000031973.jpg" alt="Chargali Legacy Investment & Partnership" class="banner-img">
+            </section>
+
+            <section>
+                <div class="sec-num">03 • გრძელვადიანი ხედვა და სტრატეგია</div>
+                <h2>ერთი პროექტი — რამდენიმე ურთიერთდაკავშირებული მიმართულება</h2>
+                <p>საკოტეჯე შეთავაზება პროექტის პირველი ეტაპია. გრძელვადიანი განვითარების ხედვა ეტაპობრივად განიხილება შესაბამისი დაგეგმარების, ინვესტიციებისა და საჭირო ნებართვების გათვალისწინებით.</p>
+                <div class="grid-2">
+                    <div class="mini-card">
+                        <strong>01. განთავსება და მთის სტუმართმოყვარეობა</strong>
+                        <p>ეთნო-სტილის კოტეჯები, მცირე ზომის განთავსების ობიექტები და სტუმრებისთვის განკუთვნილი ინფრასტრუქტურა, რომელიც მთის გარემოს შეესაბამება.</p>
+                    </div>
+                    <div class="mini-card">
+                        <strong>02. ბუნებაზე დაფუძნებული ტურიზმი და რეკრეაცია</strong>
+                        <p>სალაშქრო ბილიკები, საცხენოსნო ტურები, სეზონური აქტივობები, პანორამული ხედები, ასევე სამომავლო ზიპლაინისა და საკალმახე ტბორის კონცეფციები.</p>
+                    </div>
+                    <div class="mini-card">
+                        <strong>03. ოჯახური ისტორია და ლიტერატურა</strong>
+                        <p>საგვარეულო არქივის, ეთნოგრაფიული კუთხის, ადგილობრივი ისტორიისა და ქართული ლიტერატურული მემკვიდრეობის წარმოჩენა.</p>
+                    </div>
+                    <div class="mini-card">
+                        <strong>04. ადგილობრივი პროდუქტები და გამოცდილება</strong>
+                        <p>ფშაური ტრადიციული სამზარეულო, ადგილობრივი ნაწარმი, რეწვა, მცირე კულტურული ღონისძიებები და სოფლის მეწარმეობის მხარდაჭერა.</p>
+                    </div>
+                    <div class="mini-card">
+                        <strong>05. პარტნიორობა და ინვესტიცია</strong>
+                        <p>თანამშრომლობა კერძო ინვესტორებთან, ტურისტულ კომპანიებთან, სტუმართმოყვარეობის ოპერატორებსა და სტრატეგიულ პარტნიორებთან.</p>
+                    </div>
+                    <div class="mini-card">
+                        <strong>ბოწახი — ბოწახის მიმართულება</strong>
+                        <p>ჩარგლის ზემოთ მდებარე ბოწახის ტერიტორია განიხილება როგორც გრძელვადიანი ხედვის ნაწილი — მთის რეკრეაციის, გამაჯანსაღებელი (Wellness) სივრცეებისა და ბუნების ბილიკებისთვის.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="sec-num">04 • ისტორია და საგვარეულო მეხსიერება</div>
+                <h2>ჩარგლის მეხსიერება — რაზიკაშვილების საგვარეულო არქივი</h2>
+                <p>ვაჟა-ფშაველას სახლ-მუზეუმის ზემოთ, ჩარგლის მთიან ლანდშაფტში მდებარე მიწა ინახავს ოჯახურ ისტორიებს, ფოტოარქივსა და თაობიდან თაობაზე გადაცემულ მეხსიერებას.</p>
+                <h3>რაზიკაშვილების გენეალოგიური ხაზი (ნადირას შტო)</h3>
+                <p>ერთი ფესვი ფშავის მთიანეთში — შტო, რომელიც დარჩა ჩარგალში და თაობების განმავლობაში გააგრძელა ოჯახის ისტორია.</p>
+                <div class="genealogy">
+                    <span>IMEDA / იმედა</span> →
+                    <span>BERO / ბერო</span> →
+                    <span>NADIRA'S BRANCH / ნადირას შტო</span> →
+                    <span>NADIRA / ნადირა</span> →
+                    <span>GRIGOL / გრიგოლ</span> →
+                    <span>TAMARA “KRAZANA” / თამარ „კრაზანა“</span> →
+                    <span>DIANA / დიანა</span>
+                </div>
+                <blockquote>„ზოგიერთი ადგილი მხოლოდ იმას კი არ გვახსენებს, საიდან მოვდივართ — ის გვიჩვენებს, რა ღირს მომავალში წასაღებად.“</blockquote>
+                <div class="grid-2">
+                    <div class="media-card">
+                        <img src="1000033038.png" alt="The Razikashvili Family Genealogy & Archive Wall">
+                        <strong>The Razikashvili Family Archive Wall &amp; Genealogy</strong><br>
+                        საგვარეულო არქივი, პორტრეტები და გენეალოგიური სქემა
+                    </div>
+                    <div class="media-card">
+                        <img src="1000017809.jpg" alt="Historical Family Portrait">
+                        <strong>საგვარეულო ფოტოარქივი</strong><br>
+                        ისტორიული პორტრეტი არქივიდან
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="sec-num">05 • ჩარგლის პანორამა და ბუნება</div>
+                <h2>კადრები ჩარგლიდან და ფშავის მთებიდან</h2>
+                <div class="grid-2">
+                    <div class="media-card">
+                        <video src="video_1.mp4" controls playsinline></video>
+                        <strong>Chargali Legacy — Pshavi, Georgia</strong><br>
+                        ტერიტორიის საჰაერო ხედი (ვიდეო)
+                    </div>
+                    <div class="media-card">
+                        <img src="1000032224.jpg" alt="სოფელი ჩარგალი — ვაჟაობა">
+                        <strong>სოფელი ჩარგალი — ვაჟაობა</strong><br>
+                        სოფელი ჩარგალი — კულტურული გარემო
+                    </div>
+                    <div class="media-card">
+                        <img src="1000031835.jpg" alt="ჩარგლის მთის ფერდობები">
+                        <strong>ჩარგლის მთის ფერდობები და ბუნება</strong><br>
+                        ჩარგლის ტყიანი ფერდობები, მთის ხედი და ადგილობრივი ფლორა
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="sec-num">06 • ლიტერატურული ინიციატივა</div>
+                <h2>ქართული ლიტერატურა მსოფლიოსთვის — ვაჟა-ფშაველას სამყარო</h2>
+                <p>ჩარგალი ლეგასისთან დაკავშირებული შემოქმედებითი მიმართულება, რომელიც ვაჟა-ფშაველას ნაწარმოებების თანამედროვე ნარატიულ ადაპტაციებს აცნობს მკითხველს ქართულ, ინგლისურ და არაბულ ენებზე (ავტორი / ადაპტაცია: ვახტანგ იმერლიშვილი).</p>
+                <h3>„სტუმარ-მასპინძელი“ — ენობრივი გამოცემები</h3>
+                <p>ვაჟა-ფშაველას უკვდავი პოემის თანამედროვე ნარატიული გადმოცემა — თავისუფლად ხელმისაწვდომი გამოცემა ღირსების, სტუმარ-მასპინძლობისა და ადამიანობის შესახებ.</p>
+                <div class="links-list">
+                    <a href="https://mediterraneanco-sketch.github.io/hg/ge.html" target="_blank">🇬🇪 ქართული გამოცემა — სტუმარ-მასპინძელი ↗</a>
+                    <a href="https://mediterraneanco-sketch.github.io/hg/" target="_blank" class="secondary">🇬🇧 English Edition — Host and Guest ↗</a>
+                    <a href="https://mediterraneanco-sketch.github.io/hg/ar.html" target="_blank" class="secondary">🇸🇦 النسخة العربية — الضيف والمضيف ↗</a>
+                </div>
+                <h3>„შვლის ნუკრის ნაამბობი“ — ენობრივი გამოცემები</h3>
+                <p>ლიტერატურული ადაპტაცია, მოთხრობილი შვლის ნუკრის თვალით — ბუნების ხმის, სიცოცხლის უფლებისა და ადამიანის სინდისის შესახებ.</p>
+                <div class="links-list">
+                    <a href="https://mediterraneanco-sketch.github.io/fawns-tale/" target="_blank">🇬🇧 English Edition — The Fawn’s Tale ↗</a>
+                    <a href="https://mediterraneanco-sketch.github.io/fawns-tale/ar.html" target="_blank" class="secondary">🇸🇦 النسخة العربية — حكايات من عيون الغزال (Uyun Al-Ghazal) ↗</a>
+                </div>
+            </section>
+
+            <section>
+                <div class="sec-num">CONTACT &amp; OFFICIAL CHANNELS</div>
+                <h2>დაუკავშირდით Chargali Legacy-ს</h2>
+                <p>საინვესტიციო შეთავაზებების, სტრატეგიული პარტნიორობის ან პროექტის განვითარების საკითხებზე დეტალები განიხილება პირადი კომუნიკაციისა და ურთიერთშეთანხმების საფუძველზე.</p>
+                <p>📍 სოფელი ჩარგალი, ფშავი • დუშეთის მუნიციპალიტეტი • მცხეთა-მთიანეთი, საქართველო</p>
+                <div class="links-list">
+                    <a href="mailto:chargalilegacy@gmail.com">✉️ chargalilegacy@gmail.com</a>
+                    <a href="https://chargali-legacy.blogspot.com/" target="_blank" class="secondary">🌐 Official Blog (Blogger) ↗</a>
+                    <a href="https://chargalilegacy.github.io/" target="_blank" class="secondary">Chargali Legacy Hub ↗</a>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <strong>CHARGALI LEGACY — Nature. Heritage. Experience. Long-Term Vision.</strong><br>
+            სოფელი ჩარგალი, ფშავი, საქართველო • chargalilegacy@gmail.com
+        </footer>
+    </div>
+
+    <!-- ================= ENGLISH VERSION ================= -->
+    <div id="lang-en" class="hidden">
+        <header class="hero">
+            <img src="1000030936.jpg" alt="Chargali Legacy Logo" class="hero-logo">
+            <div class="tag">CHARGALI · PSHAVI · GEORGIA</div>
+            <h1>Chargali Legacy</h1>
+            <p>Preserving Heritage. Building the Future. Passing Values Forward. A Place Where Heritage Meets the Future — connecting nature, cultural heritage, and responsible development in Chargali, Pshavi.</p>
+            <div class="stats">
+                <div class="stat-box">
+                    <strong>~1,200 m</strong>
+                    <span>Above Sea Level</span>
+                </div>
+                <div class="stat-box">
+                    <strong>~80 km</strong>
+                    <span>From Tbilisi</span>
+                </div>
+                <div class="stat-box">
+                    <strong>~200 m²</strong>
+                    <span>Cottage Plots (Phase I)</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+            <section>
+                <div class="sec-num">01 · ABOUT THE PROJECT</div>
+                <h2>A Place Where Heritage Meets the Future</h2>
+                <p>Nestled in the mountainous region of Pshavi in Georgia, Chargali represents a distinctive meeting point of nature, cultural heritage, and human experience. Our purpose is to preserve what matters while creating opportunities for the future.</p>
+                <h3>Three Interconnected Priorities</h3>
+                <ul>
+                    <li><strong>01. Preserving Heritage:</strong> Recognizing and safeguarding family history, enduring values, local traditions, and the distinctive character of Chargali.</li>
+                    <li><strong>02. Sustainable Development:</strong> Exploring opportunities for nature-based tourism, mountain hospitality, and development that respects the surrounding environment.</li>
+                    <li><strong>03. Building the Future:</strong> Developing ideas and partnerships that connect cultural significance with responsible economic opportunity.</li>
+                </ul>
+                <img src="1000031973.jpg" alt="Chargali Legacy Investment & Partnership" class="banner-img">
+            </section>
+
+            <section>
+                <div class="sec-num">02 · PHASE I</div>
+                <h2>Cottage Investment &amp; Partnership</h2>
+                <p>In the first phase, Chargali Legacy offers cottage plots of approximately 200 m² each in Chargali village, with individual terms, legal ownership/construction options aligned with the architectural concept, and private consultation via <strong>chargalilegacy@gmail.com</strong>.</p>
+            </section>
+
+            <section>
+                <div class="sec-num">03 · LONG-TERM VISION</div>
+                <h2>One Project — Interconnected Directions</h2>
+                <div class="grid-2">
+                    <div class="mini-card">
+                        <strong>01. Mountain Hospitality</strong>
+                        <p>Ethno-style cottages, small accommodation spaces, and nature-aligned guest infrastructure.</p>
+                    </div>
+                    <div class="mini-card">
+                        <strong>02. Nature &amp; Recreation</strong>
+                        <p>Hiking trails, equestrian routes, seasonal activities, panoramic viewpoints, and future zip-line and trout pond concepts.</p>
+                    </div>
+                    <div class="mini-card">
+                        <strong>03. Family Memory &amp; Literature</strong>
+                        <p>Family archive, ethnographic corner, local history, and literary heritage inspired by Vazha-Pshavela.</p>
+                    </div>
+                    <div class="mini-card">
+                        <strong>04. Local Products &amp; Experience</strong>
+                        <p>Pshavi cuisine, local produce, crafts, small cultural gatherings, and rural enterprise support.</p>
+                    </div>
+                    <div class="mini-card">
+                        <strong>05. Partnerships &amp; Investment</strong>
+                        <p>Collaboration with private investors, travel operators, hospitality partners, and long-term stakeholders.</p>
+                    </div>
+                    <div class="mini-card">
+                        <strong>Botsakhi Direction</strong>
+                        <p>The Botsakhi area above Chargali is envisioned as part of the long-term concept for mountain recreation, wellness spaces, and nature trails.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="sec-num">04 · HERITAGE &amp; FAMILY MEMORY</div>
+                <h2>The Memory of Chargali — Razikashvili Family Archive</h2>
+                <p>Above the Vazha-Pshavela House-Museum in Chargali, the land holds family stories, historical photographs, and memory passed across generations.</p>
+                <div class="genealogy">
+                    <span>IMEDA</span> →
+                    <span>BERO</span> →
+                    <span>NADIRA'S BRANCH</span> →
+                    <span>NADIRA</span> →
+                    <span>GRIGOL</span> →
+                    <span>TAMARA “KRAZANA”</span> →
+                    <span>DIANA</span>
+                </div>
+                <div class="grid-2">
+                    <div class="media-card">
+                        <img src="1000033038.png" alt="The Razikashvili Family Genealogy">
+                        <strong>The Razikashvili Family Archive &amp; Genealogy</strong>
+                    </div>
+                    <div class="media-card">
+                        <img src="1000017809.jpg" alt="Family Archive Portrait">
+                        <strong>Historical Family Portrait</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="sec-num">05 · CHARGALI PANORAMA &amp; NATURE</div>
+                <h2>Scenes from Chargali &amp; Pshavi</h2>
+                <div class="grid-2">
+                    <div class="media-card">
+                        <video src="video_1.mp4" controls playsinline></video>
+                        <strong>Chargali Legacy — Pshavi, Georgia</strong>
+                    </div>
+                    <div class="media-card">
+                        <img src="1000032224.jpg" alt="Chargali Village">
+                        <strong>Chargali Village &amp; Cultural Gathering</strong>
+                    </div>
+                    <div class="media-card">
+                        <img src="1000031835.jpg" alt="Chargali Mountain Slopes">
+                        <strong>Chargali Slopes &amp; Highland Nature</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="sec-num">06 · LITERARY INITIATIVE</div>
+                <h2>Georgian Literature for the World — Vazha-Pshavela</h2>
+                <p>Narrative adaptations by Vakhtang Imerlishvili in Georgian, English, and Arabic — <em>Host and Guest</em> and <em>The Fawn's Tale</em>.</p>
+                <div class="links-list">
+                    <a href="https://mediterraneanco-sketch.github.io/hg/" target="_blank">Host and Guest (EN) ↗</a>
+                    <a href="https://mediterraneanco-sketch.github.io/hg/ar.html" target="_blank" class="secondary">Host and Guest (AR) ↗</a>
+                    <a href="https://mediterraneanco-sketch.github.io/fawns-tale/" target="_blank" class="secondary">The Fawn's Tale (EN) ↗</a>
+                    <a href="https://mediterraneanco-sketch.github.io/fawns-tale/ar.html" target="_blank" class="secondary">Uyun Al-Ghazal (AR) ↗</a>
+                </div>
+            </section>
+
+            <section>
+                <div class="sec-num">CONTACT &amp; OFFICIAL CHANNELS</div>
+                <h2>Connect with Chargali Legacy</h2>
+                <p>Chargali Village, Dusheti Municipality, Mtskheta-Mtianeti, Georgia • Founded by Vakhtang Imerlishvili</p>
+                <div class="links-list">
+                    <a href="mailto:chargalilegacy@gmail.com">✉️ chargalilegacy@gmail.com</a>
+                    <a href="https://chargali-legacy.blogspot.com/" target="_blank" class="secondary">🌐 Official Blog ↗</a>
+                    <a href="https://chargalilegacy.github.io/" target="_blank" class="secondary">Chargali Legacy Hub ↗</a>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <strong>CHARGALI LEGACY — Nature. Heritage. Experience. Long-Term Vision.</strong><br>
+            Chargali Village, Pshavi, Georgia • chargalilegacy@gmail.com
+        </footer>
+    </div>
+
+    <script>
+        function setLang(lang) {
+            var kaBox = document.getElementById('lang-ka');
+            var enBox = document.getElementById('lang-en');
+            var btnKa = document.getElementById('btn-ka');
+            var btnEn = document.getElementById('btn-en');
+
+            if (lang === 'en') {
+                kaBox.classList.add('hidden');
+                enBox.classList.remove('hidden');
+                btnEn.classList.add('active');
+                btnKa.classList.remove('active');
+                document.documentElement.lang = 'en';
+            } else {
+                enBox.classList.add('hidden');
+                kaBox.classList.remove('hidden');
+                btnKa.classList.add('active');
+                btnEn.classList.remove('active');
+                document.documentElement.lang = 'ka';
+            }
+        }
+    </script>
+</body>
+</html>
